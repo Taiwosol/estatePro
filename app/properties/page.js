@@ -102,7 +102,7 @@ export default function Properties() {
   return (
     <>
       <Navbar isSticky={false} bgColor="bg-white" textColor="black" />
-      <main>
+      <main className="bg-white">
         {/* Hero Section */}
         <section className="py-10 px-6">
           <div className="max-w-4xl mx-auto text-center">

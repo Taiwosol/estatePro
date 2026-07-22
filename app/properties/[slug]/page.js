@@ -273,7 +273,7 @@ export default function PropertyDetail() {
     return (
       <>
         <Navbar isSticky={false} bgColor="bg-white" textColor="black" />
-        <main className="py-20 px-6">
+        <main className="py-20 px-6 bg-white">
           <div className="max-w-7xl mx-auto text-center">
             <h1 className="text-4xl font-bold mb-4">Property Not Found</h1>
             <p className="text-gray-500">
@@ -289,7 +289,7 @@ export default function PropertyDetail() {
   return (
     <>
       <Navbar isSticky={false} bgColor="bg-white" textColor="black" />
-      <main>
+      <main className="bg-white">
         {/* Header Section */}
         <section className="py-10 px-6">
           <div className="max-w-7xl mx-auto">
