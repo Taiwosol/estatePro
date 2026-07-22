@@ -210,67 +210,75 @@ export default function Home() {
           </div>
           <div className="max-w-3xl">
             <div className="space-y-8">
-              {/* Feature 1 */}
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-fuchsia-600 flex items-center justify-center">
-                  <span className="text-white text-2xl">✓</span>
+                {/* Feature 1 */}
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-16 h-16 rounded-full bg-fuchsia-600 flex items-center justify-center">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 16L13 21L24 10" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">
+                      Expert Guidance
+                    </h3>
+                    <p className="text-gray-600">
+                      Get professional support at every stage—from property search
+                      to final documentation.
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">
-                    Expert Guidance
-                  </h3>
-                  <p className="text-gray-600">
-                    Get professional support at every stage—from property search
-                    to final documentation.
-                  </p>
+                {/* Feature 2 */}
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-16 h-16 rounded-full bg-fuchsia-600 flex items-center justify-center">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 16L13 21L24 10" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">
+                      Verified Listings
+                    </h3>
+                    <p className="text-gray-600">
+                      Every property is carefully reviewed to ensure accuracy,
+                      transparency, and trust.
+                    </p>
+                  </div>
+                </div>
+                {/* Feature 3 */}
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-16 h-16 rounded-full bg-fuchsia-600 flex items-center justify-center">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 16L13 21L24 10" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">
+                      Smart Investment Insights
+                    </h3>
+                    <p className="text-gray-600">
+                      Access market trends and data to make informed property
+                      decisions.
+                    </p>
+                  </div>
+                </div>
+                {/* Feature 4 */}
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-16 h-16 rounded-full bg-fuchsia-600 flex items-center justify-center">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 16L13 21L24 10" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">
+                      Proven Track Record
+                    </h3>
+                    <p className="text-gray-600">
+                      Trusted by hundreds of clients with a history of successful
+                      transactions.
+                    </p>
+                  </div>
                 </div>
               </div>
-              {/* Feature 2 */}
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-fuchsia-600 flex items-center justify-center">
-                  <span className="text-white text-2xl">✓</span>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">
-                    Verified Listings
-                  </h3>
-                  <p className="text-gray-600">
-                    Every property is carefully reviewed to ensure accuracy,
-                    transparency, and trust.
-                  </p>
-                </div>
-              </div>
-              {/* Feature 3 */}
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-fuchsia-600 flex items-center justify-center">
-                  <span className="text-white text-2xl">✓</span>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">
-                    Smart Investment Insights
-                  </h3>
-                  <p className="text-gray-600">
-                    Access market trends and data to make informed property
-                    decisions.
-                  </p>
-                </div>
-              </div>
-              {/* Feature 4 */}
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-fuchsia-600 flex items-center justify-center">
-                  <span className="text-white text-2xl">✓</span>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">
-                    Proven Track Record
-                  </h3>
-                  <p className="text-gray-600">
-                    Trusted by hundreds of clients with a history of successful
-                    transactions.
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
