@@ -1,10 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
 import Navbar from "@/components/Navbar";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
+import ScrollImageGallery from "@/components/ScrollImageGallery";
 
 function Counter({ target, suffix = "", duration = 2000 }) {
   const [count, setCount] = useState(0);
@@ -49,6 +52,200 @@ function Counter({ target, suffix = "", duration = 2000 }) {
       {count}
       {suffix}
     </span>
+  );
+}
+
+const featuredProperties = [
+  {
+    id: "canary-wharf-luxury-apartment",
+    title: "Canary Wharf Luxury Apartment",
+    titleLine1: "Canary Wharf",
+    titleLine2: "Luxury Apartment",
+    location: "Canary Wharf, London",
+    price: "£1,250,000",
+    pricePer: "",
+    beds: 3,
+    baths: 3,
+    sqft: 1450,
+    mainImage: "/canary-img.jpg",
+    floatImage: "/canary-img-05.jpg",
+  },
+  {
+    id: "kensington-townhouse",
+    title: "Kensington Townhouse",
+    titleLine1: "Kensington",
+    titleLine2: "Townhouse",
+    location: "Kensington, London",
+    price: "£3,800,000",
+    pricePer: "",
+    beds: 5,
+    baths: 4,
+    sqft: 3200,
+    mainImage: "/kensington-img.jpg",
+    floatImage: "/kesington-img-05.jpg",
+  },
+  {
+    id: "manchester-city-office-space",
+    title: "Manchester City Office Space",
+    titleLine1: "Manchester City",
+    titleLine2: "Office Space",
+    location: "Manchester City Centre",
+    price: "£85,000",
+    pricePer: " / year",
+    beds: 5,
+    baths: 4,
+    sqft: 3200,
+    mainImage: "/manchester-img.jpg",
+    floatImage: "/manchester-img-05.jpg",
+  },
+  {
+    id: "surrey-family-home",
+    title: "Surrey Family Home",
+    titleLine1: "Surrey Family",
+    titleLine2: "Home",
+    location: "Guildford, Surrey",
+    price: "£950,000",
+    pricePer: "",
+    beds: 4,
+    baths: 4,
+    sqft: 2100,
+    mainImage: "/surreu-img.jpg",
+    floatImage: "/surrey-img-05.jpg",
+  },
+  {
+    id: "short-stay-shoreditch",
+    title: "Short Stay – Shoreditch",
+    titleLine1: "Short Stay",
+    titleLine2: "Shoreditch",
+    location: "Shoreditch, London",
+    price: "£180",
+    pricePer: " / night",
+    beds: 2,
+    baths: 2,
+    sqft: 850,
+    mainImage: "/shoreditch-img.jpg",
+    floatImage: "/shoreditch-img-05.jpg",
+  },
+  {
+    id: "birmingham-modern-terrace",
+    title: "Birmingham Modern Terrace",
+    titleLine1: "Birmingham",
+    titleLine2: "Modern Terrace",
+    location: "Birmingham",
+    price: "£320,000",
+    pricePer: "",
+    beds: 3,
+    baths: 2,
+    sqft: 1200,
+    mainImage: "/birmingham-img.jpg",
+    floatImage: "/birmingham-img-05.jpg",
+  },
+];
+
+function FeaturedPropertiesSection() {
+  const targetRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: targetRef });
+  const x = useTransform(scrollYProgress, [0, 1], ["0vw", "-500vw"]);
+
+  return (
+    <section ref={targetRef} className="h-[500vh] bg-white relative">
+      <div className="max-w-7xl mx-auto px-6 pt-10 pb-4">
+        <h2 className="text-4xl md:text-5xl font-bold"></h2>
+      </div>
+      <div className="sticky top-0 h-screen overflow-hidden flex items-center bg-white">
+        <motion.div style={{ x }} className="flex h-full w-full">
+          {featuredProperties.map((property, index) => {
+            const isFirst = index === 0;
+            const gapSize = 20;
+            const containerPxLeft =
+              "max(1.5rem, calc((100vw - 80rem) / 2 + 1.5rem))";
+            const wrapperPad = isFirst
+              ? { paddingLeft: containerPxLeft, paddingRight: containerPxLeft }
+              : {
+                  paddingLeft: `${gapSize}px`,
+                  paddingRight: `${gapSize * 2}px`,
+                };
+            const cardOuter = {
+              marginTop: `${gapSize}px`,
+              marginBottom: `${gapSize}px`,
+              marginRight: `${gapSize}px`,
+            };
+            return (
+              <div
+                key={property.id}
+                className="group relative w-screen h-screen flex-shrink-0"
+              >
+                <Link
+                  href={`/properties/${property.id}`}
+                  className="absolute inset-0 block cursor-pointer"
+                >
+                  <div
+                    className="absolute inset-y-0 left-0 right-0"
+                    style={wrapperPad}
+                  >
+                    <div className="relative w-full h-full overflow-hidden">
+                      <Image
+                        src={property.mainImage}
+                        alt={property.title}
+                        fill
+                        className="object-cover transition-transform duration-[1000ms] ease-out group-hover:scale-105"
+                        priority={index === 0}
+                      />
+                      <div className="absolute inset-0 bg-black/10 transition-opacity duration-700 group-hover:opacity-20" />
+                    </div>
+                  </div>
+
+                  <div className="absolute inset-0 flex items-center pointer-events-none">
+                    <div className="w-full flex justify-end" style={wrapperPad}>
+                      <div
+                        style={cardOuter}
+                        className="bg-white rounded-[2rem] shadow-2xl overflow-hidden w-full max-w-[380px] transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-fuchsia-200/50"
+                      >
+                        <div className="p-5 md:p-6">
+                          <div className="relative w-full h-[220px] md:h-[250px] rounded-2xl overflow-hidden mb-5">
+                            <Image
+                              src={property.floatImage}
+                              alt={`${property.title} detail`}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+
+                          <div className="flex items-start justify-between mb-3">
+                            <div>
+                              <h3 className="text-xl md:text-2xl font-bold leading-tight">
+                                {property.titleLine1}
+                              </h3>
+                              <h3 className="text-xl md:text-2xl font-bold leading-tight">
+                                {property.titleLine2}
+                              </h3>
+                            </div>
+                            <p className="text-lg md:text-xl font-bold text-fuchsia-600 whitespace-nowrap pl-4">
+                              {property.price}
+                              {property.pricePer}
+                            </p>
+                          </div>
+
+                          <p className="text-gray-500 text-sm md:text-base mb-5">
+                            {property.location}
+                          </p>
+
+                          <div className="flex items-center justify-between text-gray-600 text-sm md:text-base border-t border-gray-100 pt-4">
+                            <span>{property.beds} Bedrooms</span>
+                            <span>{property.baths} Bathrooms</span>
+                            <span>{property.sqft} sq ft</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            );
+          })}
+        </motion.div>
+      </div>
+    </section>
   );
 }
 
@@ -199,6 +396,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Featured Properties Horizontal Scroll Section */}
+      <FeaturedPropertiesSection />
 
       {/* Why Choose Our Expertise Section */}
       <section className="py-10 bg-white">
@@ -470,6 +670,107 @@ export default function Home() {
               <p className="text-gray-600">
                 Get expert investment advice tailored to your real estate goals,
                 whether you're buying, selling, or renting.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <ScrollImageGallery />
+
+      <section className="py-10 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="space-y-8">
+            {/* Valuation Services Card */}
+            <div className="bg-gray-100 rounded-2xl p-8">
+              <div className="mb-4">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 10V19"
+                    stroke="#000000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M16 7V19"
+                    stroke="#000000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M8 14L8 19"
+                    stroke="#000000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M4 5V19C4 19.5523 4.44772 20 5 20H19"
+                    stroke="#000000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Valuation Services</h3>
+              <p className="text-gray-600">
+                Receive accurate, professional property valuations backed by
+                local market data and expert analysis.
+              </p>
+            </div>
+            {/* Rental Services Card */}
+            <div className="bg-gray-100 rounded-2xl p-8">
+              <div className="mb-4">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 10V19"
+                    stroke="#000000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M16 7V19"
+                    stroke="#000000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M8 14L8 19"
+                    stroke="#000000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M4 5V19C4 19.5523 4.44772 20 5 20H19"
+                    stroke="#000000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Rental Services</h3>
+              <p className="text-gray-600">
+                Explore personalized rental services tailored to help you find
+                or lease your ideal home with ease and confidence.
               </p>
             </div>
           </div>
