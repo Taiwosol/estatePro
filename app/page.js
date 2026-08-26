@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import Navbar from "@/components/Navbar";
@@ -150,28 +151,10 @@ function FeaturedPropertiesSection() {
   const x = useTransform(scrollYProgress, [0, 1], ["0vw", "-500vw"]);
 
   return (
-    <section ref={targetRef} className="h-[500vh] bg-white relative">
-      <div className="max-w-7xl mx-auto px-6 pt-10 pb-4">
-        <h2 className="text-4xl md:text-5xl font-bold"></h2>
-      </div>
-      <div className="sticky top-0 h-screen overflow-hidden flex items-center bg-white">
+    <section ref={targetRef} className="h-[600vh] bg-white relative">
+      <div className="sticky top-0 h-screen w-screen overflow-hidden bg-white">
         <motion.div style={{ x }} className="flex h-full w-full">
           {featuredProperties.map((property, index) => {
-            const isFirst = index === 0;
-            const gapSize = 20;
-            const containerPxLeft =
-              "max(1.5rem, calc((100vw - 80rem) / 2 + 1.5rem))";
-            const wrapperPad = isFirst
-              ? { paddingLeft: containerPxLeft, paddingRight: containerPxLeft }
-              : {
-                  paddingLeft: `${gapSize}px`,
-                  paddingRight: `${gapSize * 2}px`,
-                };
-            const cardOuter = {
-              marginTop: `${gapSize}px`,
-              marginBottom: `${gapSize}px`,
-              marginRight: `${gapSize}px`,
-            };
             return (
               <div
                 key={property.id}
@@ -181,10 +164,7 @@ function FeaturedPropertiesSection() {
                   href={`/properties/${property.id}`}
                   className="absolute inset-0 block cursor-pointer"
                 >
-                  <div
-                    className="absolute inset-y-0 left-0 right-0"
-                    style={wrapperPad}
-                  >
+                  <div className="absolute inset-0">
                     <div className="relative w-full h-full overflow-hidden">
                       <Image
                         src={property.mainImage}
@@ -198,11 +178,8 @@ function FeaturedPropertiesSection() {
                   </div>
 
                   <div className="absolute inset-0 flex items-center pointer-events-none">
-                    <div className="w-full flex justify-end" style={wrapperPad}>
-                      <div
-                        style={cardOuter}
-                        className="bg-white rounded-[2rem] shadow-2xl overflow-hidden w-full max-w-[380px] transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-fuchsia-200/50"
-                      >
+                    <div className="w-full flex justify-end pr-6 md:pr-12 lg:pr-20">
+                      <div className="bg-white rounded-[2rem] shadow-2xl overflow-hidden w-full max-w-[380px] transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-fuchsia-200/50">
                         <div className="p-5 md:p-6">
                           <div className="relative w-full h-[220px] md:h-[250px] rounded-2xl overflow-hidden mb-5">
                             <Image
@@ -705,7 +682,7 @@ export default function Home() {
               </h3>
               <p className="text-gray-600">
                 Get expert investment advice tailored to your real estate goals,
-                whether you're buying, selling, or renting.
+                whether you&apos;re buying, selling, or renting.
               </p>
             </div>
           </div>

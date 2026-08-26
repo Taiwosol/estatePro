@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
+const SMART_SECTION_IDS = ["faq", "cta"];
+
 export default function Navbar({
   isSticky = true,
   bgColor = null,
@@ -34,35 +36,61 @@ export default function Navbar({
     setHoveredLink(null);
   };
 
-  // Scroll to anchor on homepage, close menu
+  const scrollToId = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 80;
+    try {
+      window.scrollTo({ top, behavior: "smooth" });
+    } catch {
+      window.scrollTo(0, Math.max(top, 0));
+    }
+  };
+
+  const runScrollWithRetries = (id) => {
+    scrollToId(id);
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        scrollToId(id);
+      }),
+    );
+    setTimeout(() => scrollToId(id), 80);
+  };
+
+  // Smart handler for FAQ / CTA links:
+  // If the target section exists on the CURRENT page -> scroll to it in-place.
+  // Otherwise -> let Link navigate to the homepage with the hash so the
+  // homepage can scroll to it after rendering.
   const handleAnchorClick = (e, href) => {
     if (!href.startsWith("/#")) {
       closeMenu();
       return;
     }
     const id = href.slice(2);
+    const isSmartSection = SMART_SECTION_IDS.includes(id);
+
+    if (isSmartSection) {
+      const existsOnPage = !!document.getElementById(id);
+      if (existsOnPage) {
+        // Section is present here — intercept and scroll.
+        e.preventDefault();
+        closeMenu();
+        runScrollWithRetries(id);
+        return;
+      }
+      // Section is NOT here — allow the <Link> to navigate to `/#id`.
+      closeMenu();
+      return;
+    }
+
+    // Legacy behavior for any other /# anchors (intercept only on homepage).
+    if (!isHome) {
+      closeMenu();
+      return;
+    }
     e.preventDefault();
     closeMenu();
-    const scrollToId = () => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const top = el.getBoundingClientRect().top + window.scrollY - 80;
-      try {
-        window.scrollTo({ top, behavior: "smooth" });
-      } catch {
-        window.scrollTo(0, Math.max(top, 0));
-      }
-    };
-    // Run once immediately, then retry after paint so the menu overlay
-    // has unmounted and body overflow is definitely "auto".
-    scrollToId();
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => {
-        scrollToId();
-      })
-    );
-    // Final fallback after a short delay (handles cross-subframe timing).
-    setTimeout(scrollToId, 80);
+    runScrollWithRetries(id);
   };
 
   // Cleanup overflow on unmount

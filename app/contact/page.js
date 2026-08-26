@@ -4,8 +4,41 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/CTASection";
 import Image from "next/image";
+import { useEffect } from "react";
 
 export default function Contact() {
+  useEffect(() => {
+    const scrollToHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (!hash) return;
+      let attempts = 0;
+      const tryScroll = () => {
+        const el = document.getElementById(hash);
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY - 80;
+          try {
+            window.scrollTo({ top, behavior: "auto" });
+          } catch {
+            window.scrollTo(0, Math.max(top, 0));
+          }
+          requestAnimationFrame(() => {
+            const el2 = document.getElementById(hash);
+            if (!el2) return;
+            const top2 = el2.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo(0, Math.max(top2, 0));
+          });
+        } else if (attempts < 20) {
+          attempts++;
+          requestAnimationFrame(tryScroll);
+        }
+      };
+      tryScroll();
+    };
+    requestAnimationFrame(() => requestAnimationFrame(scrollToHash));
+    window.addEventListener("hashchange", scrollToHash);
+    return () => window.removeEventListener("hashchange", scrollToHash);
+  }, []);
+
   return (
     <>
       <Navbar isSticky={true} bgColor="bg-transparent" textColor="white" />
@@ -29,8 +62,8 @@ export default function Contact() {
             Connect With Us
           </h1>
           <p className="text-gray-500 text-lg md:text-xl max-w-md leading-relaxed">
-            We're here to answer your questions, discuss your ideas, or help you
-            start your next architectural journey.
+            We&apos;re here to answer your questions, discuss your ideas, or
+            help you start your next architectural journey.
           </p>
         </div>
       </section>

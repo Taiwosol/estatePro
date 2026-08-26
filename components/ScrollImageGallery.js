@@ -40,10 +40,22 @@ function StaticGallery() {
                 height: `${SLIDE_H_MOBILE}px`,
               }}
             >
-              <div className="hidden sm:block md:hidden" style={{ height: `${SLIDE_H_SM}px` }} />
-              <div className="hidden md:block lg:hidden" style={{ height: `${SLIDE_H_MD}px` }} />
-              <div className="hidden lg:block xl:hidden" style={{ height: `${SLIDE_H_LG}px` }} />
-              <div className="hidden xl:block" style={{ height: `${SLIDE_H_XL}px` }} />
+              <div
+                className="hidden sm:block md:hidden"
+                style={{ height: `${SLIDE_H_SM}px` }}
+              />
+              <div
+                className="hidden md:block lg:hidden"
+                style={{ height: `${SLIDE_H_MD}px` }}
+              />
+              <div
+                className="hidden lg:block xl:hidden"
+                style={{ height: `${SLIDE_H_LG}px` }}
+              />
+              <div
+                className="hidden xl:block"
+                style={{ height: `${SLIDE_H_XL}px` }}
+              />
               <Image
                 src={src}
                 alt={`Gallery image ${idx + 1}`}
@@ -110,12 +122,12 @@ export default function ScrollImageGallery() {
         w < 640
           ? SLIDE_H_MOBILE
           : w < 768
-          ? SLIDE_H_SM
-          : w < 1024
-          ? SLIDE_H_MD
-          : w < 1280
-          ? SLIDE_H_LG
-          : SLIDE_H_XL;
+            ? SLIDE_H_SM
+            : w < 1024
+              ? SLIDE_H_MD
+              : w < 1280
+                ? SLIDE_H_LG
+                : SLIDE_H_XL;
       loopLenPx = N * (slideH + GAP);
     };
     computeLoopLen();
@@ -154,7 +166,7 @@ export default function ScrollImageGallery() {
           }
         });
       },
-      { threshold: [0, 0.1, 0.5, 0.9, 1] }
+      { threshold: [0, 0.1, 0.5, 0.9, 1] },
     );
     io.observe(section);
 
@@ -163,14 +175,9 @@ export default function ScrollImageGallery() {
         runningRef.current = false;
         if (rafRef.current) cancelAnimationFrame(rafRef.current);
         rafRef.current = 0;
-      } else if (
-        !document.hidden &&
-        !runningRef.current &&
-        section
-      ) {
+      } else if (!document.hidden && !runningRef.current && section) {
         const r = section.getBoundingClientRect();
-        const anyVisible =
-          r.top < window.innerHeight * 0.9 && r.bottom > 10;
+        const anyVisible = r.top < window.innerHeight * 0.9 && r.bottom > 10;
         if (anyVisible) {
           runningRef.current = true;
           lastTsRef.current = 0;
@@ -204,7 +211,10 @@ export default function ScrollImageGallery() {
   }
 
   return (
-    <section ref={sectionRef} className="relative bg-white py-10 overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative bg-white py-10 overflow-hidden"
+    >
       <div
         className="mx-auto w-full px-4 sm:px-5 md:px-6"
         style={{ maxWidth: "1800px" }}
@@ -255,7 +265,11 @@ export default function ScrollImageGallery() {
             <div
               ref={trackRef}
               className="relative w-full will-change-transform"
-              style={{ display: "flex", flexDirection: "column", gap: `${GAP}px` }}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: `${GAP}px`,
+              }}
             >
               {[...IMAGES, ...IMAGES].map((src, i) => (
                 <div
