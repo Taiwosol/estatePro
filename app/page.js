@@ -8,6 +8,8 @@ import Navbar from "@/components/Navbar";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import ScrollImageGallery from "@/components/ScrollImageGallery";
+import LatestBlogs from "@/components/LatestBlogs";
+import CTASection from "@/components/CTASection";
 
 function Counter({ target, suffix = "", duration = 2000 }) {
   const [count, setCount] = useState(0);
@@ -250,6 +252,40 @@ function FeaturedPropertiesSection() {
 }
 
 export default function Home() {
+  useEffect(() => {
+    const scrollToHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (!hash) return;
+      let attempts = 0;
+      const tryScroll = () => {
+        const el = document.getElementById(hash);
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY - 80;
+          try {
+            window.scrollTo({ top, behavior: "auto" });
+          } catch {
+            window.scrollTo(0, Math.max(top, 0));
+          }
+          // Final re-check after one more paint to catch post-anim/layout shifts
+          requestAnimationFrame(() => {
+            const el2 = document.getElementById(hash);
+            if (!el2) return;
+            const top2 = el2.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo(0, Math.max(top2, 0));
+          });
+        } else if (attempts < 20) {
+          attempts++;
+          requestAnimationFrame(tryScroll);
+        }
+      };
+      tryScroll();
+    };
+    // Run after mount + after one paint so sections with layout effects are measured
+    requestAnimationFrame(() => requestAnimationFrame(scrollToHash));
+    window.addEventListener("hashchange", scrollToHash);
+    return () => window.removeEventListener("hashchange", scrollToHash);
+  }, []);
+
   return (
     <>
       <Navbar isSticky={true} />
@@ -789,6 +825,12 @@ export default function Home() {
       </section>
       {/* FAQ Section */}
       <FAQSection />
+
+      {/* Latest Blogs Section */}
+      <LatestBlogs />
+
+      {/* CTA Section */}
+      <CTASection />
 
       {/* Footer */}
       <Footer />

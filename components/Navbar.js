@@ -29,8 +29,40 @@ export default function Navbar({
   // Close menu when a link is clicked
   const closeMenu = () => {
     setIsMenuOpen(false);
+    // eslint-disable-next-line react-hooks/immutability
     document.body.style.overflow = "auto";
     setHoveredLink(null);
+  };
+
+  // Scroll to anchor on homepage, close menu
+  const handleAnchorClick = (e, href) => {
+    if (!href.startsWith("/#")) {
+      closeMenu();
+      return;
+    }
+    const id = href.slice(2);
+    e.preventDefault();
+    closeMenu();
+    const scrollToId = () => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY - 80;
+      try {
+        window.scrollTo({ top, behavior: "smooth" });
+      } catch {
+        window.scrollTo(0, Math.max(top, 0));
+      }
+    };
+    // Run once immediately, then retry after paint so the menu overlay
+    // has unmounted and body overflow is definitely "auto".
+    scrollToId();
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        scrollToId();
+      })
+    );
+    // Final fallback after a short delay (handles cross-subframe timing).
+    setTimeout(scrollToId, 80);
   };
 
   // Cleanup overflow on unmount
@@ -50,8 +82,8 @@ export default function Navbar({
       image: "/property-nav-img.jpg",
     },
     { href: "/contact", label: "Contact", image: "/contact-nav-img.jpg" },
-    { href: "/faq", label: "FAQ", image: "/faq-nav-img.jpg" },
-    { href: "/cta", label: "CTA", image: "/cta-nav-img.jpg" },
+    { href: "/#faq", label: "FAQ", image: "/faq-nav-img.jpg" },
+    { href: "/#cta", label: "CTA", image: "/cta-nav-img.jpg" },
     { href: "/blog", label: "Blog", image: "/blog-nav-img.jpg" },
   ];
 
@@ -112,9 +144,10 @@ export default function Navbar({
                     <Link
                       key={link.href}
                       href={link.href}
+                      scroll={!link.href.startsWith("/#") || !isHome}
                       onMouseEnter={() => setHoveredLink(link)}
                       onMouseLeave={() => setHoveredLink(null)}
-                      onClick={closeMenu}
+                      onClick={(e) => handleAnchorClick(e, link.href)}
                       className="block text-4xl md:text-6xl font-bold hover:text-fuchsia-500 transition-all duration-300 cursor-pointer overflow-hidden"
                     >
                       <span className="inline-block transition-transform duration-300 hover:translate-y-2">
@@ -128,9 +161,10 @@ export default function Navbar({
                     <Link
                       key={link.href}
                       href={link.href}
+                      scroll={!link.href.startsWith("/#") || !isHome}
                       onMouseEnter={() => setHoveredLink(link)}
                       onMouseLeave={() => setHoveredLink(null)}
-                      onClick={closeMenu}
+                      onClick={(e) => handleAnchorClick(e, link.href)}
                       className="block text-4xl md:text-6xl font-bold hover:text-fuchsia-500 transition-all duration-300 cursor-pointer overflow-hidden"
                     >
                       <span className="inline-block transition-transform duration-300 hover:translate-y-2">

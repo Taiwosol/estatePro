@@ -2,6 +2,7 @@
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CTASection from "@/components/CTASection";
 import Image from "next/image";
 
 export default function Contact() {
@@ -62,6 +63,8 @@ export default function Contact() {
           </div>
         </div>
       </section>
+
+      <CTASection />
 
       <Footer />
     </>
