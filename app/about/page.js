@@ -89,32 +89,38 @@ export default function About() {
                 At EstatePro, we believe real estate should be simple,
                 transparent, and rewarding. We combine verified listings with
                 expert support to help you make confident decisions—whether
-                you're buying, selling, or investing.
+                you&apos;re buying, selling, or investing.
               </p>
             </div>
 
             {/* Counters */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-8 max-w-4xl mx-auto">
               <div className="text-center">
-                <div className="text-5xl md:text-6xl font-bold mb-3">
+                <div className="text-2xl sm:text-4xl md:text-6xl font-bold mb-2 md:mb-3">
                   <Counter target={18} />
                 </div>
-                <div className="w-32 h-px bg-gray-300 mx-auto mb-3"></div>
-                <p className="text-gray-600">Years of experience</p>
+                <div className="w-12 sm:w-20 md:w-32 h-px bg-gray-300 mx-auto mb-2 md:mb-3"></div>
+                <p className="text-gray-600 text-xs sm:text-sm md:text-base">
+                  Years of experience
+                </p>
               </div>
               <div className="text-center">
-                <div className="text-5xl md:text-6xl font-bold mb-3">
+                <div className="text-2xl sm:text-4xl md:text-6xl font-bold mb-2 md:mb-3">
                   <Counter target={50} suffix="+" />
                 </div>
-                <div className="w-32 h-px bg-gray-300 mx-auto mb-3"></div>
-                <p className="text-gray-600">Expert members</p>
+                <div className="w-12 sm:w-20 md:w-32 h-px bg-gray-300 mx-auto mb-2 md:mb-3"></div>
+                <p className="text-gray-600 text-xs sm:text-sm md:text-base">
+                  Expert members
+                </p>
               </div>
               <div className="text-center">
-                <div className="text-5xl md:text-6xl font-bold mb-3">
+                <div className="text-2xl sm:text-4xl md:text-6xl font-bold mb-2 md:mb-3">
                   <Counter target={200} suffix="+" />
                 </div>
-                <div className="w-32 h-px bg-gray-300 mx-auto mb-3"></div>
-                <p className="text-gray-600">Satisfied clients</p>
+                <div className="w-12 sm:w-20 md:w-32 h-px bg-gray-300 mx-auto mb-2 md:mb-3"></div>
+                <p className="text-gray-600 text-xs sm:text-sm md:text-base">
+                  Satisfied clients
+                </p>
               </div>
             </div>
           </div>
@@ -162,101 +168,53 @@ export default function About() {
 
         {/* Expert Section */}
         <section className="py-10 px-6">
-          <div className="max-w-5xl mx-auto text-center mb-0">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Your trusted real estate experts
-            </h2>
-            <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
-              Work with experienced professionals who understand the market,
-              negotiate effectively, and guide you toward the right property
-              decisions.
-            </p>
-            <Link
-              href="#"
-              className="inline-block px-10 py-4 bg-fuchsia-600 text-white rounded-full font-semibold hover:bg-fuchsia-500 transition-all cursor-pointer"
-            >
-              Meet Our Experts
-            </Link>
-          </div>
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-8 md:mb-12">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6">
+                Your trusted real estate experts
+              </h2>
+              <p className="text-gray-600 text-base md:text-lg mb-6 md:mb-8 max-w-2xl mx-auto">
+                Work with experienced professionals who understand the market,
+                negotiate effectively, and guide you toward the right property
+                decisions.
+              </p>
+              <Link
+                href="#"
+                className="inline-block px-8 py-3 md:px-10 md:py-4 bg-fuchsia-600 text-white rounded-full font-semibold hover:bg-fuchsia-500 transition-all cursor-pointer text-sm md:text-base"
+              >
+                Meet Our Experts
+              </Link>
+            </div>
 
-          {/* Rotating Expert Images */}
-          <div
-            className="max-w-4xl mx-auto relative w-full aspect-square"
-            suppressHydrationWarning
-          >
-            <style>{`
-              @keyframes rotate {
-                from {
-                  transform: rotate(0deg);
-                }
-                to {
-                  transform: rotate(360deg);
-                }
-              }
-              @keyframes counter-rotate {
-                from {
-                  transform: rotate(0deg);
-                }
-                to {
-                  transform: rotate(-360deg);
-                }
-              }
-              .rotate-container {
-                animation: rotate 20s linear infinite;
-              }
-              .counter-rotate {
-                animation: counter-rotate 20s linear infinite;
-              }
-            `}</style>
-            <div
-              className="rotate-container w-full h-full"
-              suppressHydrationWarning
-            >
-              {[
-                "expert-img-01.jpg",
-                "expert-img-02.jpg",
-                "expert-img-03.jpg",
-                "expert-img-04.jpg",
-                "expert-img-05.jpg",
-                "expert-img-06.jpg",
-                "expert-img-07.jpg",
-                "expert-img-08.jpg",
-                "expert-img-09.jpg",
-              ].map((img, index) => {
-                const baseAngle = index * 40;
-                return (
+            {/* Expert Images Grid - Horizontal Scroll on Mobile */}
+            <div className="overflow-x-auto -mx-6 px-6 pb-4 md:overflow-visible md:mx-0 md:px-0 md:pb-0">
+              <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 min-w-max md:min-w-0 md:max-w-3xl md:mx-auto">
+                {[
+                  "expert-img-01.jpg",
+                  "expert-img-02.jpg",
+                  "expert-img-03.jpg",
+                  "expert-img-04.jpg",
+                  "expert-img-05.jpg",
+                  "expert-img-06.jpg",
+                  "expert-img-07.jpg",
+                  "expert-img-08.jpg",
+                  "expert-img-09.jpg",
+                ].map((img, index) => (
                   <div
                     key={index}
-                    className="absolute w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden"
-                    style={{
-                      top: "50%",
-                      left: "50%",
-                      transform: `translate(-50%, -50%) rotate(${baseAngle}deg) translateY(-160px)`,
-                    }}
-                    suppressHydrationWarning
+                    className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full overflow-hidden shrink-0 ring-2 ring-gray-100"
                   >
-                    {/* This div counteracts the container's continuous rotation */}
-                    <div
-                      className="counter-rotate w-full h-full"
-                      suppressHydrationWarning
-                    >
-                      {/* This div counteracts the initial base angle rotation */}
-                      <div
-                        className="w-full h-full"
-                        style={{ transform: `rotate(-${baseAngle}deg)` }}
-                        suppressHydrationWarning
-                      >
-                        <Image
-                          src={`/${img}`}
-                          alt={`Expert ${index + 1}`}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
+                    <div className="relative w-full h-full">
+                      <Image
+                        src={`/${img}`}
+                        alt={`Expert ${index + 1}`}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
                   </div>
-                );
-              })}
+                ))}
+              </div>
             </div>
           </div>
         </section>
